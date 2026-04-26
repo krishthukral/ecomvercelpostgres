@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Modern E-Shop (Next.js 15 + Supabase + Stripe)
+
+A fully functional, high-performance e-commerce prototype built with the modern web stack.
+
+## Tech Stack
+
+- **Frontend:** Next.js 15 (App Router), TypeScript, Tailwind CSS
+- **Database & Auth:** Supabase (Postgres)
+- **State Management:** Zustand (Client-side cart with persistence)
+- **Payments:** Stripe (Checkout + Webhooks)
+- **Icons:** Lucide React
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the repository and install dependencies
+
+```bash
+npm install
+```
+
+### 2. Set up Environment Variables
+
+Create a `.env.local` file in the root directory (refer to `.env.local.example`):
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+STRIPE_SECRET_KEY=your_stripe_secret_key
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
+
+### 3. Initialize the Database
+
+Run the SQL found in `supabase_schema.sql` in your Supabase SQL Editor. This will:
+- Create `products`, `orders`, and `order_items` tables.
+- Set up Row Level Security (RLS) policies.
+- Create the `decrement_stock` function for order fulfillment.
+
+### 4. Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/app/(store)` - Core shopping routes (Home, Product Details, Cart, Success)
+- `src/app/(auth)` - Authentication routes
+- `src/app/dashboard` - User order history
+- `src/app/api` - Stripe Checkout and Webhook endpoints
+- `src/components` - Reusable UI components
+- `src/lib/supabase` - Supabase clients (Client, Server, Admin)
+- `src/store/cart.ts` - Zustand cart implementation
 
-## Learn More
+## Order Flow
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. User adds items to the cart (stored in Zustand + LocalStorage).
+2. User initiates checkout; an API call creates a Stripe Checkout Session.
+3. Upon successful payment, Stripe sends a webhook to `/api/webhooks/stripe`.
+4. The webhook (using Supabase Service Role) creates the order, inserts order items, and decrements product stock.
+5. User is redirected to the `/success` page where the cart is cleared.
