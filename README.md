@@ -23,8 +23,8 @@ npm install
 Create a `.env.local` file in the root directory (refer to `.env.local.example`):
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_SUPABASE_URL=https://duhkdxkepjsojuoprlfu.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 
 STRIPE_SECRET_KEY=your_stripe_secret_key
