@@ -61,3 +61,13 @@ create policy "Service role can do everything on orders" on orders
 
 create policy "Service role can do everything on order_items" on order_items
   using (true) with check (true);
+
+-- Function to decrement stock
+create or replace function decrement_stock(product_id uuid, amount integer)
+returns void as $$
+begin
+  update products
+  set stock = stock - amount
+  where id = product_id;
+end;
+$$ language plpgsql;
