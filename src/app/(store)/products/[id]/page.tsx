@@ -2,20 +2,25 @@ import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import AddToCartButton from '@/components/AddToCartButton'
+import { Database } from '@/types/supabase'
+
+type Product = Database['public']['Tables']['products']['Row']
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const supabase = await createClient()
   
-  const { data: product } = await supabase
+  const { data: productData } = await supabase
     .from('products')
     .select('*')
     .eq('id', id)
     .single()
 
-  if (!product) {
+  if (!productData) {
     notFound()
   }
+
+  const product = productData as Product
 
   return (
     <div className="grid md:grid-cols-2 gap-12 items-start">

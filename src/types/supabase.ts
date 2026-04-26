@@ -92,7 +92,13 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      decrement_stock: {
+        Args: {
+          product_id: string
+          amount: number
+        }
+        Returns: void
+      }
     }
     Enums: {
       [_ in never]: never

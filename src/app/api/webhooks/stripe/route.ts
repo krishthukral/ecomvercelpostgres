@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 import { stripe } from '@/lib/stripe'
 import { supabaseAdmin } from '@/lib/supabase/admin'
+import { Database } from '@/types/supabase'
 
 export async function POST(req: Request) {
   const body = await req.text()
@@ -25,18 +26,18 @@ export async function POST(req: Request) {
     const cartItems = JSON.parse(metadata.cartItems)
 
     // 1. Create Order
-    const { data: order, error: orderError } = await supabaseAdmin
-      .from('orders')
+    const { data: order, error: orderError } = await (supabaseAdmin
+      .from('orders') as any)
       .insert({
-        user_id: metadata.userId || null,
-        stripe_session_id: session.id,
-        total_cents: session.amount_total,
+        user_id: (metadata.userId as string) || null,
+        stripe_session_id: session.id as string,
+        total_cents: session.amount_total as number,
         status: 'paid',
       })
       .select()
       .single()
 
-    if (orderError) {
+    if (orderError || !order) {
       console.error('Order creation error:', orderError)
       return NextResponse.json({ error: 'Order creation failed' }, { status: 500 })
     }
@@ -49,19 +50,19 @@ export async function POST(req: Request) {
       price_cents: item.price_cents,
     }))
 
-    const { error: itemsError } = await supabaseAdmin
-      .from('order_items')
+    const { error: itemsError } = await (supabaseAdmin
+      .from('order_items') as any)
       .insert(orderItemsToInsert)
 
     if (itemsError) {
       console.error('Order items creation error:', itemsError)
     }
 
-    // 3. Update Stock (Simple decrementation)
+    // 3. Update Stock
     for (const item of cartItems) {
-      await supabaseAdmin.rpc('decrement_stock', { 
-        product_id: item.id, 
-        amount: item.quantity 
+      await (supabaseAdmin.rpc as any)('decrement_stock', { 
+        product_id: item.id as string, 
+        amount: item.quantity as number 
       })
     }
   }

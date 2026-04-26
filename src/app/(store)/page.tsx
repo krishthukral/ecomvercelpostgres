@@ -1,5 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import ProductCard from '@/components/ProductCard'
+import { Database } from '@/types/supabase'
+
+type Product = Database['public']['Tables']['products']['Row']
 
 export default async function HomePage() {
   const supabase = await createClient()
@@ -11,6 +14,8 @@ export default async function HomePage() {
   if (error) {
     console.error('Error fetching products:', error)
   }
+
+  const typedProducts = (products as Product[]) || []
 
   return (
     <div className="space-y-8">
@@ -24,10 +29,10 @@ export default async function HomePage() {
       </section>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products?.map((product) => (
+        {typedProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
-        {(!products || products.length === 0) && (
+        {typedProducts.length === 0 && (
           <div className="col-span-full text-center py-20 text-gray-500">
             No products found. Add some in your Supabase dashboard!
           </div>
