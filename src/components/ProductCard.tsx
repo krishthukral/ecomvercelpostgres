@@ -27,11 +27,11 @@ export default function ProductCard({ product }: { product: Product }) {
       </Link>
       <div className="p-4 flex flex-col flex-grow">
         <Link href={`/products/${product.id}`} className="hover:text-indigo-600 transition-colors">
-          <h3 className="font-semibold text-lg line-clamp-1">{product.name}</h3>
+          <h3 className="font-semibold text-lg line-clamp-1 text-gray-900">{product.name}</h3>
         </Link>
-        <p className="text-gray-500 text-sm line-clamp-2 mt-1 mb-4">{product.description}</p>
+        <p className="text-gray-700 text-sm line-clamp-2 mt-1 mb-4">{product.description}</p>
         <div className="mt-auto flex items-center justify-between">
-          <span className="font-bold text-xl">${(product.price_cents / 100).toFixed(2)}</span>
+          <span className="font-bold text-xl text-gray-900">${(product.price_cents / 100).toFixed(2)}</span>
           <button
             onClick={() => addItem({
               id: product.id,

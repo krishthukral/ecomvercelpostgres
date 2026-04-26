@@ -43,18 +43,18 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       <div className="space-y-6">
         <div>
           <h1 className="text-4xl font-bold text-gray-900">{product.name}</h1>
-          <p className="text-2xl font-semibold text-indigo-600 mt-2">
+          <p className="text-2xl font-semibold text-indigo-700 mt-2">
             ${(product.price_cents / 100).toFixed(2)}
           </p>
         </div>
 
-        <div className="prose prose-indigo text-gray-600">
+        <div className="prose prose-indigo text-gray-800">
           <p>{product.description}</p>
         </div>
 
         <div className="pt-6 border-t">
-          <p className="text-sm text-gray-500 mb-4">
-            Stock: <span className={product.stock > 0 ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
+          <p className="text-sm text-gray-700 mb-4">
+            Stock: <span className={product.stock > 0 ? 'text-green-700 font-medium' : 'text-red-700 font-medium'}>
               {product.stock > 0 ? `${product.stock} available` : 'Out of stock'}
             </span>
           </p>

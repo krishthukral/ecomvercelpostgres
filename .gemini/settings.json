@@ -3,6 +3,17 @@
     "supabase": {
       "url": "https://mcp.supabase.com/mcp?project_ref=duhkdxkepjsojuoprlfu",
       "type": "http"
+    },
+    "stripe": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@stripe/mcp",
+        "--tools=all"
+      ],
+      "env": {
+        "STRIPE_API_KEY": "rk_test_51RVg9f4MhtP4g1p3UVYiaOg0MsJCiiNxC8LMKJC2vRVycjWfUSc9q8iPYr0abKrulpeoEetHLdblKVaTOJVZ5kuL00qpyTNtjs"
+      }
     }
   }
 }

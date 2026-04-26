@@ -19,11 +19,11 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-8">
-      <section className="text-center space-y-4">
+      <section className="text-center space-y-4 py-12">
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl text-gray-900">
-          Welcome to <span className="text-indigo-600">E-Shop</span>
+          Welcome to <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-600 to-violet-500">E-Shop</span>
         </h1>
-        <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+        <p className="text-xl text-gray-700 max-w-2xl mx-auto">
           Discover our curated collection of premium products, delivered straight to your door.
         </p>
       </section>
