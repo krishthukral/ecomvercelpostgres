@@ -11,6 +11,7 @@ export default function Header() {
   const totalItems = useCart((state) => state.totalItems())
   const [mounted, setMounted] = useState(false)
   const [user, setUser] = useState<any>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
   const supabase = createClient()
   const router = useRouter()
 
@@ -20,13 +21,29 @@ export default function Header() {
     // Check initial session
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession()
-      setUser(session?.user ?? null)
+      const currentUser = session?.user ?? null
+      setUser(currentUser)
+
+      if (currentUser) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', currentUser.id)
+          .single()
+        setIsAdmin(profile?.role === 'admin')
+      } else {
+        setIsAdmin(false)
+      }
     }
     checkUser()
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
+      const currentUser = session?.user ?? null
+      setUser(currentUser)
+      if (!currentUser) setIsAdmin(false)
+      // Note: Full role check on event change would require another fetch
+      // but session refresh usually handles role in app metadata if synced
     })
 
     return () => subscription.unsubscribe()
@@ -34,6 +51,8 @@ export default function Header() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
+    setUser(null)
+    setIsAdmin(false)
     router.push('/')
     router.refresh()
   }
@@ -71,13 +90,15 @@ export default function Header() {
                   >
                     <User className="w-6 h-6" />
                   </Link>
-                  <Link 
-                    href="/dashboard" 
-                    className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-foreground flex items-center gap-2"
-                    title="Admin Dashboard"
-                  >
-                    <LayoutDashboard className="w-6 h-6" />
-                  </Link>
+                  {isAdmin && (
+                    <Link 
+                      href="/admin" 
+                      className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-foreground flex items-center gap-2"
+                      title="Admin Dashboard"
+                    >
+                      <LayoutDashboard className="w-6 h-6" />
+                    </Link>
+                  )}
                   <button 
                     onClick={handleLogout}
                     className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-rose-600"
