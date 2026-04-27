@@ -56,7 +56,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           <p className="text-lg text-foreground mb-6 flex flex-col gap-1">
             <span className="font-bold">Availability:</span>
             <span className={product.stock > 0 ? 'text-emerald-600 dark:text-emerald-400 font-black' : 'text-red-600 dark:text-red-400 font-black'}>
-              {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
+              {product.stock > 0 ? 'In stock' : 'Out of stock'}
             </span>
           </p>
           <AddToCartButton product={product} disabled={product.stock <= 0} />
