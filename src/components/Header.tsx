@@ -60,7 +60,7 @@ export default function Header() {
   return (
     <header className="border-b border-slate-200 dark:border-slate-800 sticky top-0 bg-background/80 backdrop-blur-md z-10">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+        <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
           E-Shop
         </Link>
         <nav className="flex items-center gap-4">

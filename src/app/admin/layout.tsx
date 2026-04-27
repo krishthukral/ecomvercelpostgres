@@ -31,7 +31,7 @@ export default async function AdminLayout({
       {/* Sidebar */}
       <aside className="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hidden md:flex flex-col">
         <div className="p-6 border-b border-slate-200 dark:border-slate-800">
-          <Link href="/admin" className="text-xl font-bold text-indigo-600 dark:text-indigo-400">
+          <Link href="/admin" className="text-xl font-bold text-blue-600 dark:text-blue-400">
             E-Shop Admin
           </Link>
         </div>
@@ -67,7 +67,7 @@ export default async function AdminLayout({
           <h2 className="font-semibold text-slate-800 dark:text-slate-200">Admin Portal</h2>
           <div className="flex items-center gap-4 text-sm text-slate-500">
             <span>{user.email}</span>
-            <div className="w-8 h-8 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 rounded-full flex items-center justify-center font-bold">
+            <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full flex items-center justify-center font-bold">
               {user.email?.[0].toUpperCase()}
             </div>
           </div>

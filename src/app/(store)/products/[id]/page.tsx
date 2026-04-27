@@ -43,7 +43,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       <div className="space-y-6">
         <div>
           <h1 className="text-4xl font-extrabold text-foreground tracking-tight">{product.name}</h1>
-          <p className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mt-4">
+          <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-4">
             ${(product.price_cents / 100).toFixed(2)}
           </p>
         </div>

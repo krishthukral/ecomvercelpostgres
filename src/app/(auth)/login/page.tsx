@@ -60,7 +60,7 @@ export default function LoginPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-foreground"
+              className="w-full p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-foreground"
               placeholder="you@example.com"
               required
             />
@@ -73,7 +73,7 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-foreground"
+              className="w-full p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all text-foreground"
               placeholder="••••••••"
               required
             />
@@ -89,7 +89,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -147,7 +147,7 @@ export default function LoginPage() {
         <div className="text-center">
           <p className="text-sm text-slate-600 dark:text-slate-400">
             Don't have an account?{' '}
-            <Link href="/signup" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
+            <Link href="/signup" className="text-blue-600 dark:text-blue-400 font-semibold hover:underline">
               Create one now
             </Link>
           </p>
@@ -164,7 +164,7 @@ export default function LoginPage() {
 
         <Link
           href="/"
-          className="w-full flex items-center justify-center gap-2 text-slate-600 dark:text-slate-400 font-bold hover:text-indigo-600 transition-colors py-2"
+          className="w-full flex items-center justify-center gap-2 text-slate-600 dark:text-slate-400 font-bold hover:text-blue-600 transition-colors py-2"
         >
           Continue as Guest <ArrowRight className="w-4 h-4" />
         </Link>

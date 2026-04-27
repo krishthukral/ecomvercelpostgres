@@ -31,7 +31,7 @@ export default async function AdminUsersPage() {
                 <tr key={user.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center font-bold">
+                      <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center font-bold">
                         {user.email?.[0].toUpperCase()}
                       </div>
                       <div>
@@ -42,7 +42,7 @@ export default async function AdminUsersPage() {
                   </td>
                   <td className="px-6 py-4">
                     <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase flex items-center gap-1 w-fit ${
-                      user.role === 'admin' ? 'bg-indigo-100 text-indigo-700' : 'bg-slate-100 text-slate-700'
+                      user.role === 'admin' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-700'
                     }`}>
                       {user.role === 'admin' && <Shield className="w-3 h-3" />}
                       {user.role}
@@ -52,7 +52,7 @@ export default async function AdminUsersPage() {
                     {new Date(user.updated_at).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-slate-400 hover:text-indigo-600 transition-colors text-sm font-bold">
+                    <button className="text-slate-400 hover:text-blue-600 transition-colors text-sm font-bold">
                       Manage
                     </button>
                   </td>

@@ -69,7 +69,7 @@ export default async function AdminOrdersPage() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-indigo-600 hover:text-indigo-700 text-sm font-bold flex items-center gap-1 justify-end ml-auto">
+                    <button className="text-blue-600 hover:text-blue-700 text-sm font-bold flex items-center gap-1 justify-end ml-auto">
                       View <ExternalLink className="w-4 h-4" />
                     </button>
                   </td>

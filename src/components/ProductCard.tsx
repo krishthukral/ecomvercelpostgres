@@ -26,7 +26,7 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
       </Link>
       <div className="p-4 flex flex-col flex-grow">
-        <Link href={`/products/${product.id}`} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+        <Link href={`/products/${product.id}`} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
           <h3 className="font-semibold text-lg line-clamp-1 text-foreground">{product.name}</h3>
         </Link>
         <p className="text-muted-foreground text-sm line-clamp-2 mt-1 mb-4">{product.description}</p>
@@ -39,7 +39,7 @@ export default function ProductCard({ product }: { product: Product }) {
               price_cents: product.price_cents,
               image_url: product.image_url ?? undefined
             })}
-            className="bg-indigo-600 dark:bg-indigo-500 text-white p-2 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors flex items-center gap-2"
+            className="bg-blue-600 dark:bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors flex items-center gap-2"
           >
             <ShoppingCart className="w-5 h-5" />
             <span className="sr-only">Add to Cart</span>

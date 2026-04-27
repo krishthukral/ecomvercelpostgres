@@ -44,8 +44,8 @@ export default async function ProfilePage() {
         <div className="md:col-span-1 space-y-6">
           <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="w-20 h-20 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center">
-                <UserIcon className="w-10 h-10 text-indigo-600 dark:text-indigo-400" />
+              <div className="w-20 h-20 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                <UserIcon className="w-10 h-10 text-blue-600 dark:text-blue-400" />
               </div>
               <div>
                 <h2 className="font-bold text-lg text-foreground truncate w-full max-w-[200px]">
@@ -63,9 +63,9 @@ export default async function ProfilePage() {
             </div>
           </div>
 
-          <div className="bg-indigo-600 p-6 rounded-2xl text-white shadow-lg shadow-indigo-500/20">
+          <div className="bg-blue-600 p-6 rounded-2xl text-white shadow-lg shadow-blue-500/20">
             <h3 className="font-bold mb-2">Need help?</h3>
-            <p className="text-indigo-100 text-sm mb-4">Questions about your order? Our support team is here to help.</p>
+            <p className="text-blue-100 text-sm mb-4">Questions about your order? Our support team is here to help.</p>
             <button className="text-sm bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg font-medium transition-colors">
               Contact Support
             </button>
@@ -76,7 +76,7 @@ export default async function ProfilePage() {
         <div className="md:col-span-2 space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-              <Package className="w-5 h-5 text-indigo-600" /> Order History
+              <Package className="w-5 h-5 text-blue-600" /> Order History
             </h2>
             <span className="text-xs font-semibold px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-600">
               {orders?.length || 0} Orders
@@ -91,7 +91,7 @@ export default async function ProfilePage() {
               <p className="text-slate-500 font-medium">No orders found yet.</p>
               <Link 
                 href="/" 
-                className="inline-block bg-indigo-600 text-white px-6 py-2 rounded-xl font-bold hover:bg-indigo-700 transition-colors"
+                className="inline-block bg-blue-600 text-white px-6 py-2 rounded-xl font-bold hover:bg-blue-700 transition-colors"
               >
                 Start Shopping
               </Link>
@@ -119,7 +119,7 @@ export default async function ProfilePage() {
                     </div>
                     <div>
                       <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Total</p>
-                      <p className="text-sm font-bold text-indigo-600">${(order.total_cents / 100).toFixed(2)}</p>
+                      <p className="text-sm font-bold text-blue-600">${(order.total_cents / 100).toFixed(2)}</p>
                     </div>
                     <div className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
                       order.status === 'paid' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'

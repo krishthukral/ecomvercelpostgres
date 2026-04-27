@@ -37,7 +37,7 @@ export default function CartPage() {
         <p className="text-muted-foreground">Looks like you haven't added anything to your cart yet.</p>
         <Link
           href="/"
-          className="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
+          className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
         >
           Start Shopping
         </Link>
@@ -157,7 +157,7 @@ export default function CartPage() {
           <button
             onClick={() => handleCheckout(false)}
             disabled={isCheckingOut}
-            className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 disabled:bg-indigo-400"
+            className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 disabled:bg-blue-400"
           >
             {isCheckingOut ? 'Processing...' : (
               <>
@@ -192,10 +192,10 @@ export default function CartPage() {
               <div className="space-y-4">
                 <button
                   onClick={() => handleCheckout(true)}
-                  className="w-full flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-500 dark:hover:border-indigo-400 transition-all group text-left"
+                  className="w-full flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-all group text-left"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="p-2 bg-indigo-100 dark:bg-indigo-900/50 rounded-lg text-indigo-600 dark:text-indigo-400">
+                    <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg text-blue-600 dark:text-blue-400">
                       <Zap className="w-6 h-6" />
                     </div>
                     <div>
@@ -203,12 +203,12 @@ export default function CartPage() {
                       <p className="text-sm text-muted-foreground">No account required. Fast & secure.</p>
                     </div>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-indigo-500 transform group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-blue-500 transform group-hover:translate-x-1 transition-all" />
                 </button>
 
                 <Link
                   href="/login"
-                  className="w-full flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-500 dark:hover:border-indigo-400 transition-all group text-left"
+                  className="w-full flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-all group text-left"
                 >
                   <div className="flex items-center gap-4">
                     <div className="p-2 bg-emerald-100 dark:bg-emerald-900/50 rounded-lg text-emerald-600 dark:text-emerald-400">
@@ -224,7 +224,7 @@ export default function CartPage() {
 
                 <Link
                   href="/login"
-                  className="w-full flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-indigo-500 dark:hover:border-indigo-400 transition-all group text-left"
+                  className="w-full flex items-center justify-between p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-blue-500 dark:hover:border-blue-400 transition-all group text-left"
                 >
                   <div className="flex items-center gap-4">
                     <div className="p-2 bg-amber-100 dark:bg-amber-900/50 rounded-lg text-amber-600 dark:text-amber-400">

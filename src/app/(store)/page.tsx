@@ -21,7 +21,7 @@ export default async function HomePage() {
     <div className="space-y-8">
       <section className="text-center space-y-4 py-12">
         <h1 className="text-4xl font-extrabold tracking-tight sm:text-6xl text-foreground">
-          Welcome to <span className="bg-clip-text text-transparent bg-linear-to-r from-indigo-600 to-violet-500 dark:from-indigo-400 dark:to-violet-400">E-Shop</span>
+          Welcome to <span className="bg-clip-text text-transparent bg-linear-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-400">E-Shop</span>
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
           Discover our curated collection of premium products, delivered straight to your door.

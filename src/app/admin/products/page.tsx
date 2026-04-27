@@ -19,7 +19,7 @@ export default async function AdminProductsPage() {
         </div>
         <Link 
           href="/admin/products/new" 
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl font-bold flex items-center gap-2 transition-colors shadow-lg shadow-indigo-500/20"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl font-bold flex items-center gap-2 transition-colors shadow-lg shadow-blue-500/20"
         >
           <Plus className="w-5 h-5" /> Add Product
         </Link>
@@ -74,7 +74,7 @@ export default async function AdminProductsPage() {
                     <div className="flex justify-end gap-2">
                       <Link 
                         href={`/admin/products/${product.id}/edit`}
-                        className="p-2 text-slate-400 hover:text-indigo-600 transition-colors"
+                        className="p-2 text-slate-400 hover:text-blue-600 transition-colors"
                       >
                         <Edit className="w-5 h-5" />
                       </Link>

@@ -24,7 +24,7 @@ export default function SuccessPage() {
       <div className="pt-8">
         <Link
           href="/"
-          className="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
+          className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
         >
           Continue Shopping
         </Link>

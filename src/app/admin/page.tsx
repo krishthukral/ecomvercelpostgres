@@ -15,7 +15,7 @@ export default async function AdminDashboard() {
 
   const stats = [
     { label: 'Total Revenue', value: `$${(totalRevenue / 100).toLocaleString()}`, icon: DollarSign, color: 'bg-emerald-500' },
-    { label: 'Total Orders', value: totalOrders, icon: ShoppingBag, color: 'bg-indigo-500' },
+    { label: 'Total Orders', value: totalOrders, icon: ShoppingBag, color: 'bg-blue-500' },
     { label: 'Total Products', value: totalProducts, icon: Package, color: 'bg-amber-500' },
     { label: 'Pending Orders', value: pendingOrders, icon: TrendingUp, color: 'bg-rose-500' },
   ]
@@ -49,9 +49,9 @@ export default async function AdminDashboard() {
             Welcome to the Admin Portal. From here you can manage your inventory, track incoming orders, and view customer information.
           </p>
           <div className="mt-6 flex gap-4">
-            <div className="p-4 bg-indigo-50 dark:bg-indigo-950 rounded-xl border border-indigo-100 dark:border-indigo-900 flex-1">
-              <p className="text-sm font-bold text-indigo-700 dark:text-indigo-300">Quick Tip</p>
-              <p className="text-xs text-indigo-600 dark:text-indigo-400 mt-1">Make sure to check your Stripe dashboard for detailed payment analytics.</p>
+            <div className="p-4 bg-blue-50 dark:bg-blue-950 rounded-xl border border-blue-100 dark:border-blue-900 flex-1">
+              <p className="text-sm font-bold text-blue-700 dark:text-blue-300">Quick Tip</p>
+              <p className="text-xs text-blue-600 dark:text-blue-400 mt-1">Make sure to check your Stripe dashboard for detailed payment analytics.</p>
             </div>
           </div>
         </div>
