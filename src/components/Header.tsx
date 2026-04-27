@@ -58,10 +58,23 @@ export default function Header() {
             <>
               {user ? (
                 <div className="flex items-center gap-2">
+                  <div className="hidden sm:block text-right mr-1">
+                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Welcome back</p>
+                    <p className="text-sm font-bold text-foreground truncate max-w-[100px]">
+                      {user.email?.split('@')[0]}
+                    </p>
+                  </div>
+                  <Link 
+                    href="/profile" 
+                    className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-foreground flex items-center gap-2"
+                    title="My Account"
+                  >
+                    <User className="w-6 h-6" />
+                  </Link>
                   <Link 
                     href="/dashboard" 
                     className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-foreground flex items-center gap-2"
-                    title="Dashboard"
+                    title="Admin Dashboard"
                   >
                     <LayoutDashboard className="w-6 h-6" />
                   </Link>

@@ -12,12 +12,18 @@ export default function CartPage() {
   const [mounted, setMounted] = useState(false)
   const [isCheckingOut, setIsCheckingOut] = useState(false)
   const [showAuthModal, setShowAuthModal] = useState(false)
+  const [user, setUser] = useState<any>(null)
   const supabase = createClient()
 
   // Ensure hydration match
   useEffect(() => {
     setMounted(true)
-  }, [])
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      setUser(session?.user ?? null)
+    }
+    checkUser()
+  }, [supabase.auth])
 
   if (!mounted) return <div className="py-20 text-center">Loading cart...</div>
 
@@ -72,7 +78,14 @@ export default function CartPage() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-foreground">Shopping Cart</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-foreground">
+          {user ? `${user.email?.split('@')[0]}'s Cart` : 'Shopping Cart'}
+        </h1>
+        {user && (
+          <p className="text-slate-500 text-sm mt-1">Logged in as {user.email}</p>
+        )}
+      </div>
       
       <div className="grid lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-4">
