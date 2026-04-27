@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowRight, Mail, Lock, LogIn, Loader2 } from 'lucide-react'
+import { ArrowRight, Mail, Lock, UserPlus, Loader2 } from 'lucide-react'
 
-export default function LoginPage() {
+export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -15,29 +15,30 @@ export default function LoginPage() {
   const supabase = createClient()
   const router = useRouter()
 
-  // Check if user is already logged in
-  useEffect(() => {
-    const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (session) {
-        router.push('/dashboard')
-      }
-    }
-    checkUser()
-  }, [router, supabase.auth])
-
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setMessage('')
     
     try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
+      const { data, error } = await supabase.auth.signUp({ 
+        email, 
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        }
+      })
       if (error) throw error
-      router.push('/')
-      router.refresh()
+      
+      if (data.session) {
+        setMessage('Account created successfully! Redirecting...')
+        router.push('/')
+        router.refresh()
+      } else {
+        setMessage('Success! Please check your email for the confirmation link.')
+      }
     } catch (error: any) {
-      setMessage(error.message || 'Invalid email or password')
+      setMessage(error.message || 'An error occurred during signup')
     } finally {
       setLoading(false)
     }
@@ -47,14 +48,14 @@ export default function LoginPage() {
     <div className="max-w-md mx-auto py-12 px-4">
       <div className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl space-y-8">
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-foreground">Welcome Back</h1>
-          <p className="text-muted-foreground">Log in to your account to continue</p>
+          <h1 className="text-3xl font-bold text-foreground">Create Account</h1>
+          <p className="text-muted-foreground">Join us to start shopping and track orders</p>
         </div>
         
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleSignUp} className="space-y-4">
           <div className="space-y-1">
             <label className="text-sm font-semibold text-foreground flex items-center gap-2">
-              <Mail className="w-4 h-4 text-slate-400" /> Email
+              <Mail className="w-4 h-4 text-slate-400" /> Email Address
             </label>
             <input
               type="email"
@@ -74,13 +75,18 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all text-foreground"
-              placeholder="••••••••"
+              placeholder="Min. 6 characters"
               required
+              minLength={6}
             />
           </div>
           
           {message && (
-            <div className="p-3 rounded-lg text-sm text-center font-medium bg-rose-50 text-rose-600 border border-rose-100">
+            <div className={`p-3 rounded-lg text-sm text-center font-medium ${
+              message.toLowerCase().includes('error') || message.toLowerCase().includes('invalid') || message.toLowerCase().includes('failed')
+                ? 'bg-rose-50 text-rose-600 border border-rose-100' 
+                : 'bg-emerald-50 text-emerald-600 border border-emerald-100'
+            }`}>
               {message}
             </div>
           )}
@@ -95,7 +101,7 @@ export default function LoginPage() {
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : (
                 <>
-                  <LogIn className="w-5 h-5" /> Log In
+                  <UserPlus className="w-5 h-5" /> Sign Up
                 </>
               )}
             </button>
@@ -146,9 +152,9 @@ export default function LoginPage() {
 
         <div className="text-center">
           <p className="text-sm text-slate-600 dark:text-slate-400">
-            Don't have an account?{' '}
-            <Link href="/signup" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
-              Create one now
+            Already have an account?{' '}
+            <Link href="/login" className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
+              Log in
             </Link>
           </p>
         </div>
