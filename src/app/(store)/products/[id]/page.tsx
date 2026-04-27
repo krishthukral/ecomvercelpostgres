@@ -24,7 +24,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
   return (
     <div className="grid md:grid-cols-2 gap-12 items-start">
-      <div className="aspect-square relative rounded-2xl overflow-hidden bg-gray-100 border">
+      <div className="aspect-square relative rounded-2xl overflow-hidden bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
         {product.image_url ? (
           <Image
             src={product.image_url}
@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             priority
           />
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-400 text-xl">
+          <div className="flex items-center justify-center h-full text-slate-400 dark:text-slate-500 text-xl font-medium">
             No image available
           </div>
         )}
@@ -42,20 +42,21 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
       <div className="space-y-6">
         <div>
-          <h1 className="text-4xl font-bold text-gray-900">{product.name}</h1>
-          <p className="text-2xl font-semibold text-indigo-700 mt-2">
+          <h1 className="text-4xl font-extrabold text-foreground tracking-tight">{product.name}</h1>
+          <p className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mt-4">
             ${(product.price_cents / 100).toFixed(2)}
           </p>
         </div>
 
-        <div className="prose prose-indigo text-gray-800">
+        <div className="max-w-none text-foreground/90 leading-relaxed text-xl font-medium">
           <p>{product.description}</p>
         </div>
 
-        <div className="pt-6 border-t">
-          <p className="text-sm text-gray-700 mb-4">
-            Stock: <span className={product.stock > 0 ? 'text-green-700 font-medium' : 'text-red-700 font-medium'}>
-              {product.stock > 0 ? `${product.stock} available` : 'Out of stock'}
+        <div className="pt-8 border-t border-slate-200 dark:border-slate-800">
+          <p className="text-lg text-foreground mb-6 flex flex-col gap-1">
+            <span className="font-bold">Availability:</span>
+            <span className={product.stock > 0 ? 'text-emerald-600 dark:text-emerald-400 font-black' : 'text-red-600 dark:text-red-400 font-black'}>
+              {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
             </span>
           </p>
           <AddToCartButton product={product} disabled={product.stock <= 0} />

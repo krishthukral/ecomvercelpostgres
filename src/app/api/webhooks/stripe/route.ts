@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     const { data: order, error: orderError } = await (supabaseAdmin
       .from('orders') as any)
       .insert({
-        user_id: (metadata.userId as string) || null,
+        user_id: metadata.userId === 'guest' ? null : metadata.userId,
         stripe_session_id: session.id as string,
         total_cents: session.amount_total as number,
         status: 'paid',

@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cart`,
       metadata: {
-        userId: user?.id || '',
+        userId: user?.id || 'guest',
         cartItems: JSON.stringify(items.map(i => ({ id: i.id, quantity: i.quantity, price_cents: i.price_cents })))
       },
     })

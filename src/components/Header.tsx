@@ -1,27 +1,51 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingCart, User } from 'lucide-react'
+import { ShoppingCart, User, LogOut, LayoutDashboard } from 'lucide-react'
 import { useCart } from '@/store/cart'
 import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
 
 export default function Header() {
   const totalItems = useCart((state) => state.totalItems())
   const [mounted, setMounted] = useState(false)
+  const [user, setUser] = useState<any>(null)
+  const supabase = createClient()
+  const router = useRouter()
 
-  // Ensure hydration match
   useEffect(() => {
     setMounted(true)
-  }, [])
+    
+    // Check initial session
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      setUser(session?.user ?? null)
+    }
+    checkUser()
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [supabase.auth])
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    router.push('/')
+    router.refresh()
+  }
 
   return (
-    <header className="border-b border-slate-200 sticky top-0 bg-white/80 backdrop-blur-md z-10">
+    <header className="border-b border-slate-200 dark:border-slate-800 sticky top-0 bg-background/80 backdrop-blur-md z-10">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-indigo-700">
+        <Link href="/" className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
           E-Shop
         </Link>
-        <nav className="flex items-center gap-6">
-          <Link href="/cart" className="relative p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-700">
+        <nav className="flex items-center gap-4">
+          <Link href="/cart" className="relative p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-foreground">
             <ShoppingCart className="w-6 h-6" />
             {mounted && totalItems > 0 && (
               <span className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -29,9 +53,37 @@ export default function Header() {
               </span>
             )}
           </Link>
-          <Link href="/login" className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-700">
-            <User className="w-6 h-6" />
-          </Link>
+          
+          {mounted && (
+            <>
+              {user ? (
+                <div className="flex items-center gap-2">
+                  <Link 
+                    href="/dashboard" 
+                    className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-foreground flex items-center gap-2"
+                    title="Dashboard"
+                  >
+                    <LayoutDashboard className="w-6 h-6" />
+                  </Link>
+                  <button 
+                    onClick={handleLogout}
+                    className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-rose-600"
+                    title="Log Out"
+                  >
+                    <LogOut className="w-6 h-6" />
+                  </button>
+                </div>
+              ) : (
+                <Link 
+                  href="/login" 
+                  className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-foreground"
+                  title="Log In"
+                >
+                  <User className="w-6 h-6" />
+                </Link>
+              )}
+            </>
+          )}
         </nav>
       </div>
     </header>
