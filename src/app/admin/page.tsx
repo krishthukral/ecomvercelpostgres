@@ -8,10 +8,10 @@ export default async function AdminDashboard() {
   const { data: products } = await supabase.from('products').select('id')
   const { data: orders } = await supabase.from('orders').select('total_cents, status')
 
-  const totalRevenue = orders?.reduce((sum, order) => sum + order.total_cents, 0) || 0
+  const totalRevenue = (orders as any[])?.reduce((sum, order) => sum + order.total_cents, 0) || 0
   const totalOrders = orders?.length || 0
   const totalProducts = products?.length || 0
-  const pendingOrders = orders?.filter(o => o.status === 'pending').length || 0
+  const pendingOrders = (orders as any[])?.filter(o => o.status === 'pending').length || 0
 
   const stats = [
     { label: 'Total Revenue', value: `$${(totalRevenue / 100).toLocaleString()}`, icon: DollarSign, color: 'bg-emerald-500' },
