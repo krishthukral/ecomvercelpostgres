@@ -1,6 +1,42 @@
 -- Enable UUID extension
 create extension if not exists "uuid-ossp";
 
+-- Profiles Table (linked to auth.users)
+create table profiles (
+  id uuid primary key references auth.users(id) on delete cascade,
+  email text,
+  role text not null default 'customer' check (role in ('customer', 'admin')),
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- RLS for profiles
+alter table profiles enable row level security;
+
+create policy "Users can view their own profile" on profiles
+  for select using (auth.uid() = id);
+
+create policy "Admins can view all profiles" on profiles
+  for select using (
+    exists (
+      select 1 from profiles
+      where id = auth.uid() and role = 'admin'
+    )
+  );
+
+-- Trigger to create profile on signup
+create or replace function public.handle_new_user()
+returns trigger as $$
+begin
+  insert into public.profiles (id, email, role)
+  values (new.id, new.email, 'customer');
+  return new;
+end;
+$$ language plpgsql security definer;
+
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
+
 -- Products Table
 create table products (
   id uuid primary key default uuid_generate_v4(),
