@@ -22,7 +22,9 @@ export default async function AdminLayout({
     .eq('id', user.id)
     .maybeSingle()
 
-  if (!profile || profile.role !== 'admin') {
+  const userRole = (profile as any)?.role
+
+  if (userRole !== 'admin') {
     redirect('/')
   }
 
