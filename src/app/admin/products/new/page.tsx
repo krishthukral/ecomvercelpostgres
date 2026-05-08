@@ -22,14 +22,14 @@ export default function NewProductPage() {
     setLoading(true)
 
     try {
-      const { error } = await supabase
-        .from('products')
+      const { error } = await (supabase
+        .from('products') as any)
         .insert({
           name,
           description,
           price_cents: Math.round(parseFloat(price) * 100),
           stock: parseInt(stock),
-          image_url: imageUrl || null
+          image_url: imageUrl || null,
         })
 
       if (error) throw error
