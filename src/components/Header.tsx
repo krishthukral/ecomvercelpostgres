@@ -30,7 +30,7 @@ export default function Header() {
           .select('role')
           .eq('id', currentUser.id)
           .single()
-        setIsAdmin(profile?.role === 'admin')
+        setIsAdmin((profile as any)?.role === 'admin')
       } else {
         setIsAdmin(false)
       }

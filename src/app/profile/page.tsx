@@ -98,7 +98,7 @@ export default async function ProfilePage() {
             </div>
           ) : (
             <div className="space-y-4">
-              {orders.map((order) => (
+              {(orders as any[]).map((order) => (
                 <div 
                   key={order.id} 
                   className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-md transition-shadow"
