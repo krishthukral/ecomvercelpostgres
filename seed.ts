@@ -1,11 +1,10 @@
 import { createClient } from '@supabase/supabase-js'
 import dotenv from 'dotenv'
-import path from 'path'
 
 dotenv.config({ path: '.env.local' })
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY // We need the service role key for seeding if RLS is strict
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 if (!supabaseUrl || !supabaseKey) {
   console.error('Missing env vars. Please provide NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY')
@@ -15,44 +14,103 @@ if (!supabaseUrl || !supabaseKey) {
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 const sampleProducts = [
+  // CARBURETORS
   {
-    name: 'Classic White T-Shirt',
-    description: 'A comfortable and stylish white t-shirt made from 100% organic cotton.',
-    price_cents: 2500,
-    stock: 50,
-    image_url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=1000',
+    name: 'Dominator 1050 CFM Carburetor',
+    description: 'High-performance 4-barrel carburetor for drag racing and extreme street performance.',
+    price_cents: 84900,
+    stock: 12,
+    category: 'CARBURETORS',
+    image_url: '/assets/CARBURETORS.jpg',
   },
   {
-    name: 'Denim Jacket',
-    description: 'Classic blue denim jacket, perfect for layering in any season.',
-    price_cents: 8500,
-    stock: 20,
-    image_url: 'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?auto=format&fit=crop&q=80&w=1000',
+    name: 'Street Avenger 600 CFM',
+    description: 'Perfect for street rods and muscle cars, features vacuum secondaries for smooth operation.',
+    price_cents: 45900,
+    stock: 25,
+    category: 'CARBURETORS',
+    image_url: '/assets/CARBURETORS.jpg',
   },
   {
-    name: 'Leather Boots',
-    description: 'Durable and stylish leather boots for your outdoor adventures.',
-    price_cents: 12000,
+    name: 'Double Pumper 750 CFM',
+    description: 'Mechanical secondaries for instant throttle response. Ideal for modified engines.',
+    price_cents: 58900,
+    stock: 18,
+    category: 'CARBURETORS',
+    image_url: '/assets/CARBURETORS.jpg',
+  },
+  {
+    name: 'Ultra XP 850 CFM',
+    description: 'Race-ready aluminum carburetor with adjustable air bleeds and high-flow boosters.',
+    price_cents: 92900,
+    stock: 8,
+    category: 'CARBURETORS',
+    image_url: '/assets/CARBURETORS.jpg',
+  },
+  // TURBOCHARGERS
+  {
+    name: 'GT45 Stage 3 Turbo',
+    description: 'T4 flange, .66 A/R compressor, 1.05 A/R turbine. Supports up to 800HP.',
+    price_cents: 125000,
+    stock: 5,
+    category: 'TURBOCHARGERS',
+    image_url: '/assets/TURBOCHARGERS.jpg',
+  },
+  {
+    name: 'S366 SX-E Super Core',
+    description: 'Forged milled wheel, 360 degree thrust bearing. High efficiency for mid-range boost.',
+    price_cents: 89900,
+    stock: 10,
+    category: 'TURBOCHARGERS',
+    image_url: '/assets/TURBOCHARGERS.jpg',
+  },
+  // SUPERCHARGERS
+  {
+    name: 'Roots Style 6-71 Blower',
+    description: 'The classic muscle car look. High-torque output from low RPM. Polished finish.',
+    price_cents: 349900,
+    stock: 3,
+    category: 'SUPERCHARGERS',
+    image_url: '/assets/SUPERCHARGERS.jpg',
+  },
+  {
+    name: 'Centrifugal SC-V3',
+    description: 'Internal belt drive system, quiet operation, massive top-end power gains.',
+    price_cents: 275000,
+    stock: 7,
+    category: 'SUPERCHARGERS',
+    image_url: '/assets/SUPERCHARGERS.jpg',
+  },
+  // INTERCOOLERS
+  {
+    name: 'Vertical Flow Front Mount',
+    description: '3" core, bar and plate design for maximum heat dissipation. 2.5" inlets.',
+    price_cents: 32900,
     stock: 15,
-    image_url: 'https://images.unsplash.com/photo-1520639889313-7272a74744ae?auto=format&fit=crop&q=80&w=1000',
+    category: 'INTERCOOLERS / HEAT EXCHANGERS',
+    image_url: '/assets/INTERCOOLERS.jpg',
   },
   {
-    name: 'Canvas Backpack',
-    description: 'A spacious and rugged canvas backpack for everyday use.',
-    price_cents: 6500,
-    stock: 30,
-    image_url: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&q=80&w=1000',
+    name: 'Liquid-to-Air Heat Exchanger',
+    description: 'Compact design for tight engine bays. High thermal conductivity core.',
+    price_cents: 48900,
+    stock: 9,
+    category: 'INTERCOOLERS / HEAT EXCHANGERS',
+    image_url: '/assets/INTERCOOLERS.jpg',
   },
 ]
 
 async function seed() {
-  console.log('Seeding products...')
+  console.log('Clearing old products...')
+  await supabase.from('products').delete().neq('id', '00000000-0000-0000-0000-000000000000')
+
+  console.log('Seeding performance products...')
   const { data, error } = await supabase.from('products').insert(sampleProducts).select()
 
   if (error) {
     console.error('Error seeding products:', error)
   } else {
-    console.log('Successfully seeded products:', data.length)
+    console.log('Successfully seeded products:', data?.length)
   }
 }
 

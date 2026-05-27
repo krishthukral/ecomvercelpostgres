@@ -12,7 +12,7 @@ export default async function HomePage() {
     .from('products')
     .select('*')
     .order('created_at', { ascending: false })
-    .limit(8)
+    .limit(4) // Show exactly 4 featured parts on one line
 
   if (error) {
     console.error('Error fetching products:', error)
@@ -63,8 +63,9 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             {categories.map((category, index) => (
-              <div 
+              <Link 
                 key={index} 
+                href={`/catalogue?category=${encodeURIComponent(category.name)}`}
                 className="group relative bg-[#001329] overflow-hidden cursor-pointer border border-white/5 shadow-md hover:shadow-2xl transition-all duration-300"
               >
                 <div className="relative aspect-video flex items-center justify-center p-4">
@@ -74,13 +75,13 @@ export default async function HomePage() {
                     className="w-full h-full object-contain opacity-95 group-hover:scale-105 transition-all duration-700"
                   />
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Products Section */}
+      {/* Featured Products Section - Limited to 4 parts in one line */}
       <section className="w-full bg-[#001329] py-12 md:py-16 border-t border-white/5">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-4">
