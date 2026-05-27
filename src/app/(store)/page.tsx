@@ -63,53 +63,30 @@ export default function HomePage() {
             </button>
           </div>
 
-          {/* Categories Grid - 2x2 Layout */}
+          {/* Categories Grid - 2x2 Layout, Focus on Full Image Visibility */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             {categories.map((category, index) => (
               <div 
                 key={index} 
-                className="group relative bg-[#001329] aspect-video md:aspect-auto md:h-[350px] overflow-hidden cursor-pointer border border-white/5 shadow-md hover:shadow-2xl transition-all duration-300"
+                className="group relative bg-[#001329] overflow-hidden cursor-pointer border border-white/5 shadow-md hover:shadow-2xl transition-all duration-300"
               >
-                {/* Background Image */}
-                <div className="absolute inset-0 z-0">
+                {/* Background Image - Changed to object-contain and removed overlay text */}
+                <div className="relative aspect-video flex items-center justify-center p-4">
                   <img 
                     src={category.img} 
                     alt={category.name} 
-                    className="w-full h-full object-cover object-center opacity-70 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700"
+                    className="w-full h-full object-contain opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700"
                   />
                 </div>
-
-                {/* Text Layer */}
-                <div className="absolute top-6 left-6 z-10">
-                  <h3 className="text-2xl md:text-4xl font-black italic text-white leading-none uppercase max-w-[300px] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                    {category.name}
-                  </h3>
-                </div>
                 
-                {/* Trust Badges - Only on last item */}
-                {index === categories.length - 1 && (
-                  <div className="absolute bottom-6 right-6 z-20 flex flex-col md:flex-row gap-3">
-                    <div className="flex items-center gap-1 bg-white/95 px-3 py-1.5 rounded-sm text-xs font-bold text-[#001b3a] shadow-sm">
-                      <Truck className="w-4 h-4 text-red-600" />
-                      <span>FAST SHIPPING</span>
-                    </div>
-                    <div className="flex items-center gap-1 bg-white/95 px-3 py-1.5 rounded-sm text-xs font-bold text-[#001b3a] shadow-sm">
-                      <ShieldCheck className="w-4 h-4 text-red-600" />
-                      <span>SECURE CHECKOUT</span>
-                    </div>
-                    <div className="flex items-center gap-1 bg-white/95 px-3 py-1.5 rounded-sm text-xs font-bold text-[#001b3a] shadow-sm">
-                      <Award className="w-4 h-4 text-red-600" />
-                      <span>QUALITY GUARANTEED</span>
-                    </div>
-                  </div>
-                )}
+                {/* Trust Badges Overlay removed for clarity, or kept minimal if necessary */}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Trust Badges Footer Row */}
+      {/* Trust Badges Footer Row - Keeps information clear without cluttering images */}
       <div className="bg-[#001329] border-t border-white/10 py-10">
         <div className="container mx-auto px-4 flex flex-wrap justify-center gap-8 md:gap-20">
           <div className="flex items-center gap-4">
