@@ -6,18 +6,6 @@ export default function HomePage() {
     { name: 'TURBOCHARGERS', img: '/assets/TURBOCHARGERS.jpg' },
     { name: 'SUPERCHARGERS', img: '/assets/SUPERCHARGERS.jpg' },
     { name: 'INTERCOOLERS / HEAT EXCHANGERS', img: '/assets/INTERCOOLERS.jpg' },
-    { name: 'FORCED INDUCTION', img: '/assets/FORCED INDUCTION.jpg' },
-    { name: 'ENGINE MANAGEMENT', img: '/assets/ENGINE MANAGEMENT.jpg' },
-    { name: 'EFI COMPONENTS', img: '/assets/EFI COMPONENTS.jpg' },
-    { name: 'FUELING', img: '/assets/FUELING.jpg' },
-    { name: 'FUEL PUMPS', img: '/assets/FUELP PUMPS.jpg' },
-    { name: 'IGNITION', img: '/assets/IGNITION.jpg' },
-    { name: 'TANKS', img: '/assets/TANKS.jpg' },
-    { name: 'REGULATORS', img: '/assets/REGULATORS.jpg' },
-    { name: 'AN FITTINGS', img: '/assets/AN FITTINGS.jpg' },
-    { name: 'AN HOSE', img: '/assets/AN HOSE.jpg' },
-    { name: 'AN TUBING', img: '/assets/AN TUBING.jpg' },
-    { name: 'PLUMBING', img: '/assets/plumbing.jpg' },
   ]
 
   return (
@@ -75,42 +63,42 @@ export default function HomePage() {
             </button>
           </div>
 
-          {/* Categories Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {/* Categories Grid - 2x2 Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             {categories.map((category, index) => (
               <div 
                 key={index} 
-                className="group relative bg-[#001329] aspect-square overflow-hidden cursor-pointer border border-white/5 shadow-md hover:shadow-2xl transition-all duration-300"
+                className="group relative bg-[#001329] aspect-video md:aspect-auto md:h-[350px] overflow-hidden cursor-pointer border border-white/5 shadow-md hover:shadow-2xl transition-all duration-300"
               >
                 {/* Background Image */}
                 <div className="absolute inset-0 z-0">
                   <img 
                     src={category.img} 
                     alt={category.name} 
-                    className="w-full h-full object-cover object-center opacity-60 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700"
+                    className="w-full h-full object-cover object-center opacity-70 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700"
                   />
                 </div>
 
                 {/* Text Layer */}
-                <div className="absolute top-4 left-4 z-10">
-                  <h3 className="text-xl md:text-2xl font-black italic text-white leading-none uppercase max-w-[180px] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                <div className="absolute top-6 left-6 z-10">
+                  <h3 className="text-2xl md:text-4xl font-black italic text-white leading-none uppercase max-w-[300px] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                     {category.name}
                   </h3>
                 </div>
                 
                 {/* Trust Badges - Only on last item */}
                 {index === categories.length - 1 && (
-                  <div className="absolute bottom-4 right-4 z-20 flex flex-col gap-2 scale-75 origin-bottom-right md:scale-90">
-                    <div className="flex items-center gap-1 bg-white/95 px-2 py-1 rounded-sm text-[10px] font-bold text-[#001b3a] shadow-sm">
-                      <Truck className="w-3 h-3 text-red-600" />
+                  <div className="absolute bottom-6 right-6 z-20 flex flex-col md:flex-row gap-3">
+                    <div className="flex items-center gap-1 bg-white/95 px-3 py-1.5 rounded-sm text-xs font-bold text-[#001b3a] shadow-sm">
+                      <Truck className="w-4 h-4 text-red-600" />
                       <span>FAST SHIPPING</span>
                     </div>
-                    <div className="flex items-center gap-1 bg-white/95 px-2 py-1 rounded-sm text-[10px] font-bold text-[#001b3a] shadow-sm">
-                      <ShieldCheck className="w-3 h-3 text-red-600" />
+                    <div className="flex items-center gap-1 bg-white/95 px-3 py-1.5 rounded-sm text-xs font-bold text-[#001b3a] shadow-sm">
+                      <ShieldCheck className="w-4 h-4 text-red-600" />
                       <span>SECURE CHECKOUT</span>
                     </div>
-                    <div className="flex items-center gap-1 bg-white/95 px-2 py-1 rounded-sm text-[10px] font-bold text-[#001b3a] shadow-sm">
-                      <Award className="w-3 h-3 text-red-600" />
+                    <div className="flex items-center gap-1 bg-white/95 px-3 py-1.5 rounded-sm text-xs font-bold text-[#001b3a] shadow-sm">
+                      <Award className="w-4 h-4 text-red-600" />
                       <span>QUALITY GUARANTEED</span>
                     </div>
                   </div>
@@ -122,33 +110,33 @@ export default function HomePage() {
       </section>
 
       {/* Trust Badges Footer Row */}
-      <div className="bg-[#001329] border-t border-white/10 py-8">
-        <div className="container mx-auto px-4 flex flex-wrap justify-center gap-8 md:gap-16">
-          <div className="flex items-center gap-3">
-            <div className="bg-[#ff6600] p-2 rounded-full">
-              <Truck className="w-5 h-5 text-white" />
+      <div className="bg-[#001329] border-t border-white/10 py-10">
+        <div className="container mx-auto px-4 flex flex-wrap justify-center gap-8 md:gap-20">
+          <div className="flex items-center gap-4">
+            <div className="bg-[#ff6600] p-3 rounded-full shadow-lg">
+              <Truck className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="font-black italic text-sm text-white leading-none uppercase">Fast Shipping</p>
-              <p className="text-[10px] text-gray-400 uppercase font-bold">Orders over $99</p>
+              <p className="font-black italic text-base text-white leading-none uppercase">Fast Shipping</p>
+              <p className="text-xs text-gray-400 uppercase font-bold mt-1">Orders over $99</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="bg-[#ff6600] p-2 rounded-full">
-              <ShieldCheck className="w-5 h-5 text-white" />
+          <div className="flex items-center gap-4">
+            <div className="bg-[#ff6600] p-3 rounded-full shadow-lg">
+              <ShieldCheck className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="font-black italic text-sm text-white leading-none uppercase">Secure Checkout</p>
-              <p className="text-[10px] text-gray-400 uppercase font-bold">SSL Encrypted</p>
+              <p className="font-black italic text-base text-white leading-none uppercase">Secure Checkout</p>
+              <p className="text-xs text-gray-400 uppercase font-bold mt-1">SSL Encrypted</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="bg-[#ff6600] p-2 rounded-full">
-              <Award className="w-5 h-5 text-white" />
+          <div className="flex items-center gap-4">
+            <div className="bg-[#ff6600] p-3 rounded-full shadow-lg">
+              <Award className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="font-black italic text-sm text-white leading-none uppercase">Quality Guaranteed</p>
-              <p className="text-[10px] text-gray-400 uppercase font-bold">100% Genuine Parts</p>
+              <p className="font-black italic text-base text-white leading-none uppercase">Quality Guaranteed</p>
+              <p className="text-xs text-gray-400 uppercase font-bold mt-1">100% Genuine Parts</p>
             </div>
           </div>
         </div>
