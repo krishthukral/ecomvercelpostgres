@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import ProductCard from '@/components/ProductCard'
+import Link from 'next/link'
 import { Database } from '@/types/supabase'
 import { ChevronLeft, ChevronRight, Truck, ShieldCheck, Award, Sparkles } from 'lucide-react'
 
