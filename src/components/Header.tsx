@@ -1,124 +1,95 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingCart, User, LogOut, LayoutDashboard } from 'lucide-react'
-import { useCart } from '@/store/cart'
-import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { Search, ShoppingCart, User, Menu } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Header() {
-  const totalItems = useCart((state) => state.totalItems())
-  const [mounted, setMounted] = useState(false)
-  const [user, setUser] = useState<any>(null)
-  const [isAdmin, setIsAdmin] = useState(false)
-  const supabase = createClient()
-  const router = useRouter()
-
-  useEffect(() => {
-    setMounted(true)
-    
-    // Check initial session
-    const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      const currentUser = session?.user ?? null
-      setUser(currentUser)
-
-      if (currentUser) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', currentUser.id)
-          .single()
-        setIsAdmin((profile as any)?.role === 'admin')
-      } else {
-        setIsAdmin(false)
-      }
-    }
-    checkUser()
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      const currentUser = session?.user ?? null
-      setUser(currentUser)
-      if (!currentUser) setIsAdmin(false)
-      // Note: Full role check on event change would require another fetch
-      // but session refresh usually handles role in app metadata if synced
-    })
-
-    return () => subscription.unsubscribe()
-  }, [supabase.auth])
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut()
-    setUser(null)
-    setIsAdmin(false)
-    router.push('/')
-    router.refresh()
-  }
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="border-b border-slate-200 dark:border-slate-800 sticky top-0 bg-background/80 backdrop-blur-md z-10">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-          E-Shop
-        </Link>
-        <nav className="flex items-center gap-4">
-          <Link href="/cart" className="relative p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-foreground">
-            <ShoppingCart className="w-6 h-6" />
-            {mounted && totalItems > 0 && (
-              <span className="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                {totalItems}
-              </span>
-            )}
+    <header className="bg-[#001b3a] text-white w-full z-50">
+      <div className="container mx-auto px-4 py-4 md:py-6">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex flex-col">
+            <span className="text-2xl md:text-3xl font-black italic tracking-tighter leading-none">
+              CONSOLIDATED
+            </span>
+            <span className="text-xl md:text-2xl font-black italic tracking-tighter leading-none text-[#ff6600]">
+              PERFORMANCE
+            </span>
           </Link>
-          
-          {mounted && (
-            <>
-              {user ? (
-                <div className="flex items-center gap-2">
-                  <div className="hidden sm:block text-right mr-1">
-                    <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Welcome back</p>
-                    <p className="text-sm font-bold text-foreground truncate max-w-[100px]">
-                      {user.email?.split('@')[0]}
-                    </p>
+
+          {/* Desktop Navigation & Search */}
+          <div className="hidden lg:flex flex-col items-end gap-1">
+            <div className="flex items-center gap-8">
+              <nav className="flex items-center gap-6">
+                <Link href="/catalogue" className="text-sm font-bold tracking-widest hover:text-[#ff6600] transition-colors">
+                  CATALOGUE
+                </Link>
+                <a href="tel:1111111111" className="text-sm font-bold tracking-widest hover:text-[#ff6600] transition-colors">
+                  (111)111-1111
+                </a>
+              </nav>
+
+              {/* Search Bar & Contact Link */}
+              <div className="flex flex-col items-start gap-1">
+                <Link href="/contact" className="text-[10px] text-gray-400 hover:text-white transition-colors">
+                  (Contact)
+                </Link>
+                <div className="flex items-center">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search for parts..."
+                      className="bg-[#2a2a2a] text-white px-4 py-2 w-64 focus:outline-none focus:ring-1 focus:ring-[#ff6600] text-sm"
+                    />
                   </div>
-                  <Link 
-                    href="/profile" 
-                    className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-foreground flex items-center gap-2"
-                    title="My Account"
-                  >
-                    <User className="w-6 h-6" />
-                  </Link>
-                  {isAdmin && (
-                    <Link 
-                      href="/admin" 
-                      className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-foreground flex items-center gap-2"
-                      title="Admin Dashboard"
-                    >
-                      <LayoutDashboard className="w-6 h-6" />
-                    </Link>
-                  )}
-                  <button 
-                    onClick={handleLogout}
-                    className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-rose-600"
-                    title="Log Out"
-                  >
-                    <LogOut className="w-6 h-6" />
+                  <button className="bg-[#ff6600] text-white px-6 py-2 font-bold text-sm hover:bg-[#e65c00] transition-colors">
+                    SEARCH
                   </button>
                 </div>
-              ) : (
-                <Link 
-                  href="/login" 
-                  className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors text-foreground"
-                  title="Log In"
-                >
-                  <User className="w-6 h-6" />
+              </div>
+
+              {/* Icons */}
+              <div className="flex items-center gap-4 ml-2">
+                <Link href="/cart" className="hover:text-[#ff6600] transition-colors">
+                  <ShoppingCart className="w-5 h-5" />
                 </Link>
-              )}
-            </>
-          )}
-        </nav>
+                <Link href="/login" className="hover:text-[#ff6600] transition-colors">
+                  <User className="w-5 h-5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="lg:hidden p-2 text-white"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="lg:hidden mt-4 pb-4 flex flex-col gap-4 border-t border-white/10 pt-4">
+            <Link href="/catalogue" className="font-bold">CATALOGUE</Link>
+            <a href="tel:1111111111" className="font-bold">(111)111-1111</a>
+            <div className="flex flex-col gap-2">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="bg-[#2a2a2a] text-white px-4 py-2 w-full focus:outline-none"
+              />
+              <button className="bg-[#ff6600] text-white px-6 py-2 font-bold w-full">
+                SEARCH
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   )
